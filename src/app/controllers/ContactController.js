@@ -1,11 +1,21 @@
+const ContactsRepository = require('../repositories /ContactsRepository');
+
 class ContactCotroller {
     // Listar todos os registros \\
-    index(req, res) {
-        res.send('send from Contatct Controllers');
+    async index(req, res) {
+        const contacts = await ContactsRepository.findAll();
+        res.json(contacts);
     }
 
     // Obter um registro \\
-    show() {}
+    async show(req, res) {
+        const { id } = req.params;
+        const contact = await ContactsRepository.findById(id);
+        if (!contact) {
+            return res.status(400).json({ error: 'Contact not found' });
+        }
+        res.json(contact);
+    }
 
     // Cadastrar um novo registro \\
     store() {}
