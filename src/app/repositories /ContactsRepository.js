@@ -44,6 +44,16 @@ class ContactsRepository {
         });
     }
 
+    update(id, { name, email, phone, category_id }) {
+        return new Promise(resolove => {
+            const updatedContatct = { name, email, phone, category_id };
+            contacts = contacts.map(contact =>
+                contact.id === id ? updatedContatct : contact,
+            );
+            resolove(updatedContatct);
+        });
+    }
+
     delete(id) {
         return new Promise(resolve => {
             contacts = contacts.filter(contact => contact.id !== id);
