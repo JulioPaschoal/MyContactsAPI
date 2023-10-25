@@ -1,6 +1,6 @@
 const { v4 } = require('uuid');
 
-const contacts = [
+let contacts = [
     {
         id: v4(),
         name: 'Julio Paschoal',
@@ -29,8 +29,27 @@ class ContactsRepository {
             resolve(contacts.find(contact => contact.id === id));
         });
     }
+
+    findByEmail(email) {
+        return new Promise(resolve => {
+            resolve(contacts.find(contact => contact.email === email));
+        });
+    }
+
+    create({ name, email, phone, category_id }) {
+        return new Promise(resolve => {
+            const newContatct = { id: v4(), name, email, phone, category_id };
+            contacts.push(newContatct);
+            resolve(newContatct);
+        });
+    }
+
+    delete(id) {
+        return new Promise(resolve => {
+            contacts = contacts.filter(contact => contact.id !== id);
+            resolve();
+        });
+    }
 }
 
 module.exports = new ContactsRepository();
-
-// AULA 26
