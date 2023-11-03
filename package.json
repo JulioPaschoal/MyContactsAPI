@@ -1,18 +1,15 @@
 {
     "name": "MyContactsAPI",
     "version": "1.0.0",
-    "description": "API projeto MyContacts",
+    "description": "API Projeto MyContacts",
     "main": "index.js",
-    "author": "JulioPAschoal",
+    "repository": "https://github.com/JulioPaschoal/MyContactsAPI.git",
+    "author": "JulioPaschoal",
     "license": "MIT",
     "scripts": {
-        "start": "nodemon src/index.js"
+        "dev": "nodemon src/index.js"
     },
     "dependencies": {
-        "express": "^4.18.2",
-        "uuid": "^9.0.1"
-    },
-    "devDependencies": {
-        "nodemon": "^3.0.1"
+        "express": "^4.18.2"
     }
 }
