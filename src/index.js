@@ -1,15 +1,12 @@
-// import module \\
+// CONFIG. MODULOS \\
 const express = require('express');
-const routes = require('./routes');
+const router = require('./app/routes');
 const app = express();
 
-// Middleware \\
-app.use(express.json());
+// MINHAS ROTAS \\
+app.use(router);
 
-// My routes \\
-app.use(routes);
-
-// Start the server \\
+// INICIALIZAR SERVIDOR \\
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
