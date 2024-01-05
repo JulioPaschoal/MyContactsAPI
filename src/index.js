@@ -3,6 +3,9 @@ const express = require('express');
 const router = require('./app/routes');
 const app = express();
 
+//CONFIG. MIDDLEWARE \\
+app.use(express.json());
+
 // MINHAS ROTAS \\
 app.use(router);
 

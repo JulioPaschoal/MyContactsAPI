@@ -18,10 +18,53 @@ class ContactController {
     }
 
     // CRIAR UM REGISTRO \\
-    store() {}
+    async store(req, res) {
+        const { name, email, phone, category_id } = req.body;
+        if (!name || !email || !phone) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+        const contactExists = await ContactsRepository.findByEmail(email);
+        if (contactExists) {
+            return res
+                .status(400)
+                .json({ error: 'This e-mail is already in use' });
+        }
+
+        const contact = await ContactsRepository.create({
+            name,
+            email,
+            phone,
+            category_id,
+        });
+        res.json(contact);
+    }
 
     // EDITAR UM REGISTRO \\
-    update() {}
+    async update(req, res) {
+        const { id } = req.params;
+        const { name, email, phone, category_id } = req.body;
+        const contactExists = await ContactsRepository.findById(id);
+        if (!contactExists) {
+            return res.status(400).json({ error: 'Contact not found' });
+        }
+        if (!name || !email || !phone) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+        const contactByEmail = await ContactsRepository.findByEmail(email);
+        if (contactByEmail && contactByEmail.id !== id) {
+            return res
+                .status(400)
+                .json({ error: 'This e-mail is already in use' });
+        }
+
+        const contact = await ContactsRepository.update(id, {
+            name,
+            email,
+            phone,
+            category_id,
+        });
+        res.json(contact);
+    }
 
     // DELETAR UM REGISTRO \\
     async delete(req, res) {
