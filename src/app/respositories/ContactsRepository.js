@@ -17,6 +17,7 @@ let contacts = [
     },
 ];
 
+const db = require('../../database');
 class ContactsRepository {
     // LISTAR TODOS OS REGISTRO \\
     findAll() {
@@ -40,18 +41,13 @@ class ContactsRepository {
     }
 
     // CRIAR UM REGISTRO \\
-    create({ name, email, phone, category_id }) {
-        return new Promise((resolve, reject) => {
-            const Newcontact = {
-                id: v4(),
-                name,
-                email,
-                phone,
-                category_id,
-            };
-            contacts.push(Newcontact);
-            resolve(Newcontact);
-        });
+    async create({ name, email, phone, category_id }) {
+        const [row] = await db.query(
+            `INSERT INTO contacts(name, email, phone, category_id)
+            VALUES($1, $2, $3, $4) RETURNING *`,
+            [name, email, phone, category_id],
+        );
+        return row;
     }
 
     // EDITAR UM REGISTRO \\
@@ -81,5 +77,3 @@ class ContactsRepository {
 }
 
 module.exports = new ContactsRepository();
-
-// AULA F034 \\
