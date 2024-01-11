@@ -10,8 +10,3 @@ router.put('/contacts/:id', ContactController.update);
 router.delete('/contacts/:id', ContactController.delete);
 
 module.exports = router;
-
-exports.query = async query => {
-    const { rows } = await client.query(query);
-    return rows;
-};
