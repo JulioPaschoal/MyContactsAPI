@@ -1,27 +1,11 @@
-const { v4 } = require('uuid');
-
-let contacts = [
-    {
-        id: v4(),
-        name: 'Julio Paschoal',
-        email: 'juliocpaschoal@gmail.com',
-        phone: '44999999999',
-        caregory_id: v4(),
-    },
-    {
-        id: v4(),
-        name: 'Jeise Mantovani',
-        email: 'jeisemantovanigmail.com',
-        phone: '44988888888',
-        caregory_id: v4(),
-    },
-];
-
 const db = require('../../database');
 class ContactsRepository {
     // LISTAR TODOS OS REGISTRO \\
-    async findAll() {
-        const rows = await db.query('SELECT * FROM contacts');
+    async findAll(orderBy = 'ASC') {
+        const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+        const rows = await db.query(
+            `SELECT * FROM contacts ORDER BY name ${direction}`,
+        );
         return rows;
     }
 
@@ -79,5 +63,3 @@ class ContactsRepository {
 }
 
 module.exports = new ContactsRepository();
-
-//AULA F039
