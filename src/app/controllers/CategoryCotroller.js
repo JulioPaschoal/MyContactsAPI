@@ -1,3 +1,6 @@
+// IMPORTANTO  CATEGORYREPOSITORY \\
+const CategoryRepository = require('../respositories/CategoryRepository');
+
 class CategoryController {
     // LISTA TODAS AS CATEGORIAS \\
     index(req, res) {
@@ -5,8 +8,13 @@ class CategoryController {
     }
 
     // CADASTRAR UMA CATEGORIA \\
-    store(req, res) {
-        res.send('ok - store');
+    async store(req, res) {
+        const { name } = req.body;
+        if (!name) {
+            return res.status(400).json({ error: 'name is required' });
+        }
+        const category = await CategoryRepository.create({ name });
+        res.json(category);
     }
 }
 
