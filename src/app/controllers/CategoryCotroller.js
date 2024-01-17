@@ -3,8 +3,9 @@ const CategoryRepository = require('../respositories/CategoryRepository');
 
 class CategoryController {
     // LISTA TODAS AS CATEGORIAS \\
-    index(req, res) {
-        res.send('ok - index');
+    async index(req, res) {
+        const categories = await CategoryRepository.findAll();
+        res.json(categories);
     }
 
     // CADASTRAR UMA CATEGORIA \\

@@ -3,7 +3,10 @@ const db = require('../../database');
 
 class CategoryRepository {
     // LISTAR TODOS AS CATEGORIAS \\
-    findAll() {}
+    async findAll() {
+        const rows = await db.query('SELECT * FROM categories ORDER BY name');
+        return rows;
+    }
 
     // CRIAR UMA CATEGORIA \\
     async create({ name }) {
